@@ -1,0 +1,56 @@
+class Solution
+{
+    public:
+    Node *compute(Node *head)
+    {
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        Node *temp=head;
+        Node *t=temp->next;
+        Node *prev=NULL;
+        while(temp->next!=NULL){
+            //check if right side data is greater or not
+            if(t!=NULL && temp->data<t->data ){
+                //if head node is to be deleted
+                if(temp==head){
+                    head=t;
+                    delete temp;
+                    temp=t;
+                    t=t->next;
+                }
+                //if any other node apart from head is to be deleted
+                else{
+                    prev->next=t;
+                    delete temp;
+                    temp=t;
+                    t=t->next;
+                }
+            }
+            
+            //if data is smaller than temp
+            else{
+                //this is done to check the rest of loop
+                if(t!=NULL){
+                    t=t->next;
+                    continue;
+                }
+                //condition when t is null and we need to look for the next element ie temp to compare for
+                else{
+                 prev=temp;
+                temp=temp->next;
+                if(temp->next!=NULL)
+                t=temp->next;
+                
+                }
+            }
+            
+            
+        }
+        return head;
+         
+    
+    }
+    
+};
+   
